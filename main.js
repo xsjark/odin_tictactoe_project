@@ -93,6 +93,8 @@ const checkDiagonal = (row, column, symbol, array) => {
   }
 };
 
+const checkDraw = (array) => !gameBoard.flat().includes("")
+
 const toggleString = (obj, string1, string2) => {
   player = obj === string1 ? string2 : string1;
 };
@@ -112,6 +114,13 @@ const playTurn = (row, column, symbol, array) => {
               resetArray()
               refreshUI()
             },0);
+      } 
+      else if (checkDraw(gameBoard)) {
+        setTimeout(function() {
+            alert("Draw")
+            resetArray()
+            refreshUI()
+          },0);
       } else {
           toggleString(player, "x", "o");
       }
