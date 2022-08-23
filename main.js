@@ -14,7 +14,6 @@ const resetArray = () => {
     ["", "", ""],
     ["", "", ""],
   ];
-  console.log(`${player} wins`);
 };
 const checkHorizontal = (row, column, symbol, array) => {
   switch (column) {
@@ -98,28 +97,26 @@ const toggleString = (obj, string1, string2) => {
   player = obj === string1 ? string2 : string1;
 };
 
-const playTurn = (row, column, symbol, array) => {
-  if (!array[row][column]) {
-    array[row][column] = symbol;
-    resetUI();
-    if (checkHorizontal(row, column, symbol, array) || checkVertical(row, column, symbol, array) || checkDiagonal(row, column, symbol, array)){
-        setTimeout(function() {
-            alert(`${symbol} wins`)
-            resetArray()
-            resetUI()
-          },0);
-          
-    } else {
-        toggleString(player, "x", "o");
-    }
-  }
-};
-
-const resetUI = () => {
+const refreshUI = () => {
   container.innerHTML = "";
   renderArray(gameBoard);
 };
 
+const playTurn = (row, column, symbol, array) => {
+    if (!array[row][column]) {
+      array[row][column] = symbol;
+      refreshUI();
+      if (checkHorizontal(row, column, symbol, array) || checkVertical(row, column, symbol, array) || checkDiagonal(row, column, symbol, array)){
+          setTimeout(function() {
+              alert(`${symbol} wins`)
+              resetArray()
+              refreshUI()
+            },0);
+      } else {
+          toggleString(player, "x", "o");
+      }
+    }
+  };
 const container = document.getElementById("container");
 
 const renderArray = (array) => {
