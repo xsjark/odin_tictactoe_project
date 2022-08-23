@@ -102,10 +102,16 @@ const playTurn = (row, column, symbol, array) => {
   if (!array[row][column]) {
     array[row][column] = symbol;
     resetUI();
-    console.log(checkHorizontal(row, column, symbol, array));
-    console.log(checkVertical(row, column, symbol, array));
-    console.log(checkDiagonal(row, column, symbol, array));
-    toggleString(player, "x", "o");
+    if (checkHorizontal(row, column, symbol, array) || checkVertical(row, column, symbol, array) || checkDiagonal(row, column, symbol, array)){
+        setTimeout(function() {
+            alert(`${symbol} wins`)
+            resetArray()
+            resetUI()
+          },0);
+          
+    } else {
+        toggleString(player, "x", "o");
+    }
   }
 };
 
